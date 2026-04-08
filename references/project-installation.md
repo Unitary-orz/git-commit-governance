@@ -1,25 +1,25 @@
-# Project Installation
+# Project Generation
 
-本流程用于把 `git-commit-governance` 落到具体仓库，并安装为一套可执行、可维护的项目提交规则。
+本流程用于把 `git-commit-governance` 落到具体仓库，并生成为一套可执行、可维护的项目提交规则。
 
-## 安装后的目标结构
-- 全局规则仓库：可放在任意便于复用的位置，例如 `$CODEX_HOME/skills/git-commit-governance`
+## 生成后的目标结构
+- 全局规则仓库：可放在任意便于复用的 skill 目录或规则目录，例如 `~/.agents/skills/git-commit-governance`
 - 项目文档：`docs/git-commit提交说明.md`
-- 项目增量规则：建议保存在项目内，例如 `.codex/skills/<project>-git-commit-rules/SKILL.md`
-- 可选项目参考：例如 `.codex/skills/<project>-git-commit-rules/references/*.md`
+- 项目增量规则：建议保存在项目内，例如 `<project-skill-dir>/skills/<project>-git-commit-rules/SKILL.md`
+- 可选项目参考：例如 `<project-skill-dir>/skills/<project>-git-commit-rules/references/*.md`
 
 说明：
-- 如果当前 agent 支持 skill 目录，可以直接使用 `.codex/skills/...` 结构。
+- 如果当前 agent 支持 skill 目录，直接放进项目 skill 目录即可。
 - 如果当前 agent 不支持 skill 目录，也应保留一份等价的项目增量规则，并挂载到该 agent 的规则入口。
 - 不同 agent 可以共用同一份项目文档与项目增量规则，不要分别维护多套正文。
 
-## 安装原则
+## 生成原则
 - `git-commit-governance` 负责通用提交方法和默认写法。
 - 项目 git 提交规则 skill 直接写项目已知事实，例如 scope 白名单、summary 语言要求、禁止项、发布限制。
 - 开发者看项目文档，agent 参考仓库内可用的规则文件。
 - 如项目文档或 `AGENTS.md` 有更新，以项目最新规则为准。
 
-## 安装顺序
+## 生成顺序
 
 ### 1. 先采集项目现状
 在生成项目规则前，先确认仓库现在真实采用什么规范，优先级如下：
@@ -53,10 +53,10 @@
 - 提交前的检查目标
 - 发布、版本、脚本、签名等特殊限制
 
-### 3. 安装项目 git 提交规则 skill
+### 3. 生成项目 git 提交规则 skill
 在项目内新建项目 git 提交规则 skill，命名建议为 `<project>-git-commit-rules`。
 
-如果当前 agent 支持 skill 目录，建议放在 `.codex/skills/<project>-git-commit-rules/`。
+如果当前 agent 支持 skill 目录，建议放在 `<project-skill-dir>/skills/<project>-git-commit-rules/`。
 如果不支持，也至少应保留同等内容，并在该 agent 的项目规则入口中引用。
 
 可以直接从模板起步：
@@ -82,7 +82,7 @@
 - 如项目文档或 `AGENTS.md` 有更新，以项目最新规范为准
 
 ### 5. 校对项目文档与项目规则
-完成安装后，检查两类内容是否一致：
+完成生成后，检查两类内容是否一致：
 - `summary` 语言
 - `scope` 白名单
 - 禁止 scope
@@ -100,7 +100,7 @@
 给支持 skill 目录的 agent 使用，建议结构如下：
 
 ```text
-.codex/skills/<project>-git-commit-rules/
+<project-skill-dir>/skills/<project>-git-commit-rules/
 └── SKILL.md
 ```
 
@@ -111,17 +111,17 @@
 建议先直接复制模板，再按项目实际情况替换占位内容：
 
 ```bash
-mkdir -p .codex/skills/<project>-git-commit-rules
-cp ~/.codex/skills/git-commit-governance/assets/project-skill-SKILL.md .codex/skills/<project>-git-commit-rules/SKILL.md
+mkdir -p <project-skill-dir>/skills/<project>-git-commit-rules
+cp <your-skills-dir>/git-commit-governance/assets/project-skill-SKILL.md <project-skill-dir>/skills/<project>-git-commit-rules/SKILL.md
 ```
 
 如果项目 scope 较多或命名容易漂移，再额外补一个可选的 `references/scope.md`。
 
-如果当前 agent 不支持 `.codex/skills/`：
+如果当前 agent 不支持 skill 目录：
 - 仍然建议保留这套目录作为规则源文件。
 - 再把同样的约束同步到该 agent 的项目规则入口，而不是重写另一套规则正文。
 
-## 不要这样安装
+## 不要这样生成
 - 不要把公共 skill 整份复制到项目里继续维护。
 - 不要把公共规则和项目规则各写一份完整版。
 - 不要只创建项目 git 提交规则 skill，不生成开发者可读的项目文档。
