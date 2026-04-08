@@ -44,6 +44,26 @@ $CODEX_HOME/skills/git-commit-governance
 
 安装后建议重启 Codex。
 
+## 其他 Agent 接入
+
+这套仓库的核心是可复用的规则文件，而不是某个单独平台的专有格式。对不同 code agent，差异主要在“规则挂载入口”，不是规则正文。
+
+最小可用文件集：
+
+- `SKILL.md`
+- `references/scope.md`
+- 项目内的 `docs/git-commit提交说明.md`
+
+如果目标 agent 支持专门的规则文件、workspace instructions 或自定义系统提示词，可以直接引用上述文件内容。
+
+### Claude Code
+
+建议做法：
+
+1. 先保留本仓库原始结构，作为统一规则源。
+2. 在 Claude Code 官方支持的项目规则入口中引用本仓库规则，例如 `CLAUDE.md` 或 `.claude/CLAUDE.md`。
+3. 如果项目内存在 `AGENTS.md`、`docs/git-commit提交说明.md` 或项目增量规则，优先遵循项目规则。
+
 ## 更新
 
 ```bash
@@ -117,7 +137,6 @@ git pull
 ```text
 git-commit-governance/
 ├── README.md
-├── README.en.md
 ├── SKILL.md
 ├── agents/
 │   └── openai.yaml

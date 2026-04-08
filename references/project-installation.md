@@ -7,10 +7,15 @@
 - 项目 skill：只负责该仓库自己的增量规则
 
 ## 安装后的目标结构
-- 全局 skill：`$CODEX_HOME/skills/git-commit-governance`
+- 全局规则仓库：可放在任意便于复用的位置，例如 `$CODEX_HOME/skills/git-commit-governance`
 - 项目文档：`docs/git-commit提交说明.md`
-- 项目增量 skill：`.codex/skills/<project>-git-commit-rules/SKILL.md`
-- 可选项目参考：`.codex/skills/<project>-git-commit-rules/references/*.md`
+- 项目增量规则：建议保存在项目内，例如 `.codex/skills/<project>-git-commit-rules/SKILL.md`
+- 可选项目参考：例如 `.codex/skills/<project>-git-commit-rules/references/*.md`
+
+说明：
+- 如果当前 agent 支持 skill 目录，可以直接使用 `.codex/skills/...` 结构。
+- 如果当前 agent 不支持 skill 目录，也应保留一份等价的项目增量规则，并挂载到该 agent 的规则入口。
+- 不同 agent 可以共用同一份项目文档与项目增量规则，不要分别维护多套正文。
 
 ## 安装原则
 - 公共 skill 保持通用，不写项目私有 scope 白名单。
@@ -53,7 +58,10 @@
 - 发布、版本、脚本、签名等特殊限制
 
 ### 3. 安装项目增量 skill
-在项目 `.codex/skills/` 下新建项目 skill，命名建议为 `<project>-git-commit-rules`。
+在项目内新建项目增量规则，命名建议为 `<project>-git-commit-rules`。
+
+如果当前 agent 支持 skill 目录，建议放在 `.codex/skills/<project>-git-commit-rules/`。
+如果不支持，也至少应保留同等内容，并在该 agent 的项目规则入口中引用。
 
 项目 skill 只保留项目特有内容，例如：
 - `summary` 是否固定中文
@@ -70,7 +78,7 @@
 - GPG 不绕过原则
 
 ### 4. 在项目 skill 中声明依赖关系
-项目 skill 开头应明确：
+项目增量规则开头应明确：
 - 先使用公共 `git-commit-governance`
 - 再叠加本项目规则
 - 如与 `docs/git-commit提交说明.md` 或 `AGENTS.md` 冲突，以项目最新规范为准
@@ -82,7 +90,7 @@
 - 禁止 scope
 - 发布与签名限制
 
-项目文档和项目 skill 可以表达方式不同，但规则不能相互矛盾。
+项目文档和项目增量规则可以表达方式不同，但规则不能相互矛盾。
 
 ## 推荐输出
 
@@ -91,7 +99,7 @@
 - `docs/git-commit提交说明.md`
 
 ### 项目 skill
-给 agent 使用，建议结构如下：
+给支持 skill 目录的 agent 使用，建议结构如下：
 
 ```text
 .codex/skills/<project>-git-commit-rules/
@@ -104,6 +112,10 @@
 - `SKILL.md` 写适用范围、增量规则、优先级关系
 - `references/scope.md` 写项目 scope 白名单与示例
 
+如果当前 agent 不支持 `.codex/skills/`：
+- 仍然建议保留这套目录作为规则源文件。
+- 再把同样的约束同步到该 agent 的项目规则入口，而不是重写另一套规则正文。
+
 ## 不要这样安装
 - 不要把公共 skill 整份复制到项目里继续维护。
 - 不要把公共规则和项目规则各写一份完整版。
@@ -112,6 +124,6 @@
 
 ## 完成交付的判断标准
 - 项目已经有开发者可直接阅读的 `docs/git-commit提交说明.md`
-- 项目已经有仅包含增量规则的 `<project>-git-commit-rules`
+- 项目已经有仅包含增量规则的 `<project>-git-commit-rules` 或等价规则文件
 - agent 可以明确区分“公共规则”和“项目规则”
 - 项目文档、项目 skill、`AGENTS.md` 对核心提交规则表述一致

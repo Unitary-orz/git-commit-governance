@@ -1,6 +1,7 @@
 ---
 name: git-commit-governance
-description: Standardize Git commit workflow and commit messages for reusable repository work. Use when preparing commits, splitting staged changes, choosing scope, writing commit messages, or when Git signing may block a commit.
+description: Use this skill when preparing a git commit, drafting or reviewing a commit message, choosing a commit scope, splitting unrelated changes into separate commits, or handling Git signing failures.
+
 ---
 
 # Git Commit Governance
