@@ -10,6 +10,7 @@ description: Use this skill when preparing a git commit, drafting or reviewing a
 - Applies to Git commits in the current repository.
 - Trigger when the task includes `git commit`, commit message drafting, staged diff review, or splitting commits.
 - Read [references/scope.md](references/scope.md) before choosing `scope`.
+- When the repository clearly matches a known project type, also read the relevant file under [references/project-types/](references/project-types/).
 - Default `summary` to Chinese unless the repository explicitly requires another language.
 
 ## Hard rules
@@ -32,6 +33,14 @@ description: Use this skill when preparing a git commit, drafting or reviewing a
 - During a commit-focused task, do not modify code by default. If you find a problem in the changes, ask the user before editing because the code may be intentionally left for the user to change.
 - If repository docs or `AGENTS.md` define commit rules, follow them before falling back to this skill's defaults.
 - For project onboarding or rule installation, read [references/project-installation.md](references/project-installation.md).
+
+## Project Types
+- `references/project-types/*.md` holds optional project-type context for this skill.
+- When a repository clearly feels like one of those shapes, read the matching file and use it to sharpen `scope` choice, summary tone, and examples.
+- Keep it lightweight: repository-local rules still come first.
+- Current references:
+  - `app`: [references/project-types/app-development.md](references/project-types/app-development.md) for general app projects where `scope` should stay close to pages, flows, and product-facing domains.
+  - `openclaw`: [references/project-types/openclaw-workspace.md](references/project-types/openclaw-workspace.md) for personal agent workspaces where `scope` can come from agent capabilities and long-lived task domains.
 
 ## Message patterns
 
@@ -70,13 +79,14 @@ git commit -m "feat(field): 收敛端口字段与应用关联流程" \
 
 ## Recommended workflow
 1. Inspect repository-local commit rules, if any, then read [references/scope.md](references/scope.md).
-2. Inspect working tree.
-3. Stage only the intended files.
-4. Re-check staged diff and split unrelated changes.
-5. For commit-only tasks, do not edit code unless the user asks or confirms.
-6. Choose exactly one concrete `scope` for the staged change.
-7. Run plain `git commit -m "type(scope): summary"`.
-8. If signing fails, stop and surface the error.
+2. If the repository clearly matches a known project type, read the relevant file under [references/project-types/](references/project-types/).
+3. Inspect working tree.
+4. Stage only the intended files.
+5. Re-check staged diff and split unrelated changes.
+6. For commit-only tasks, do not edit code unless the user asks or confirms.
+7. Choose exactly one concrete `scope` for the staged change.
+8. Run plain `git commit -m "type(scope): summary"`.
+9. If signing fails, stop and surface the error.
 
 ## Project installation
 - Use this skill to produce two repository outputs:

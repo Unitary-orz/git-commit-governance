@@ -23,6 +23,7 @@ docs(repo): 更新提交流程说明
 - **稳定的 commit 描述**：统一用简洁中文，尽量一行说清功能点变化，避免空泛描述。
 - **效果**：每个 commit 只讲一件事，阅读提交历史时，一眼能看出改了什么、影响到哪块。
 - **项目自定义**：通过仓库内独立规则补充 scope 列表和特殊约束，而不用复制这套通用规范。
+- **项目类型扩展**：在 `references/project-types/` 里补充不同项目形态的参考，方便按仓库类型快速找到更贴切的 `scope` 感觉和示例。
 
 ## 📌 约束说明
 
@@ -67,6 +68,11 @@ git pull
 2. 判断合适的 `scope`
 3. 帮项目落地自己的 Git 提交规范
 
+当前已提供的 project-types：
+
+- `app`：`references/project-types/app-development.md`，适合通用 app 项目，`scope` 更贴页面、流程和产品功能域。
+- `openclaw`：`references/project-types/openclaw-workspace.md`，适合个人 agent workspace，`scope` 更贴 agent 能力面和长期任务域。
+
 **推荐落地方式**
 
 - `git-commit-governance` 负责通用方法
@@ -105,6 +111,8 @@ git pull
 判断这次改动应该使用什么 scope
 
 检查这次提交是否只表达一件事；如果不是，给出拆分建议
+
+根据 git-commit-governance，参考 app type 为本项目生成 git commit 要求
 ```
 
 ### 项目规则生成
@@ -138,7 +146,10 @@ git-commit-governance/
 │   └── openai.yaml
 ├── references/
 │   ├── scope.md
-│   └── project-installation.md
+│   ├── project-installation.md
+│   └── project-types/
+│       ├── app-development.md
+│       └── openclaw-workspace.md
 └── assets/
     ├── git-commit提交说明.md
     └── project-skill-SKILL.md
