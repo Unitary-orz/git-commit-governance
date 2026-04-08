@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Commit Governance"
+  short_description: "Standardize commit messages and repository commit hygiene"
+  default_prompt: "Review the staged or intended changes, choose an appropriate commit scope, and draft or validate a compliant git commit message."
