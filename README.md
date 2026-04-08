@@ -73,6 +73,13 @@ git pull
 - `app`：`references/project-types/app-development.md`，适合通用 app 项目，`scope` 更贴页面、流程和产品功能域。
 - `openclaw`：`references/project-types/openclaw-workspace.md`，适合个人 agent workspace，`scope` 更贴 agent 能力面和长期任务域。
 
+### OpenClaw 使用
+
+参考 `openclaw` type 生成项目 git commit 规则或 skill。
+
+- `根据 git-commit-governance，参考 openclaw type 为本项目生成 git commit 要求`
+- `查看当前 github 仓库，参考 openclaw type 生成本项目的 git commit skill`
+
 **推荐落地方式**
 
 - `git-commit-governance` 负责通用方法
