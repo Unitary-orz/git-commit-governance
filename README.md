@@ -35,13 +35,13 @@ docs(repo): 更新提交流程说明
 
 ## 📦 安装
 
-如果你使用默认 Codex skill 目录：
+默认安装：
 
 ```bash
 git clone https://github.com/Unitary-orz/git-commit-governance ~/.codex/skills/git-commit-governance
 ```
 
-如果你使用自定义 `CODEX_HOME`，安装到：
+自定义 `CODEX_HOME`：
 
 ```text
 $CODEX_HOME/skills/git-commit-governance
@@ -144,6 +144,12 @@ git pull
 ```text
 创建项目增量 skill，不复制公共 skill 正文
 ```
+
+最短流程：
+
+1. 生成 `docs/git-commit提交说明.md`
+2. 创建 `<project>-git-commit-rules/SKILL.md`
+3. 只填写项目 facts：scope、summary 语言、特殊限制
 
 项目 git 提交规则 skill 可直接基于模板生成：
 

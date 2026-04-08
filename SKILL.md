@@ -1,6 +1,6 @@
 ---
 name: git-commit-governance
-description: Use this skill when preparing a git commit, drafting or reviewing a commit message, choosing a commit scope, splitting unrelated changes into separate commits, or handling Git signing failures.
+description: Use this skill when preparing a git commit, drafting or reviewing a commit message, choosing a commit scope, splitting unrelated changes into separate commits, handling Git signing failures, and producing project git rule skills and docs.
 
 ---
 
@@ -79,10 +79,18 @@ git commit -m "feat(field): 收敛端口字段与应用关联流程" \
 8. If signing fails, stop and surface the error.
 
 ## Project installation
-- When a repository needs custom commit rules, follow [references/project-installation.md](references/project-installation.md).
-- Use [assets/git-commit提交说明.md](assets/git-commit提交说明.md) as the developer-facing template for the project `docs/` directory.
+- Use this skill to produce two repository outputs:
+- `docs/git-commit提交说明.md` from [assets/git-commit提交说明.md](assets/git-commit提交说明.md)
+- `<project>-git-commit-rules/SKILL.md` from [assets/project-skill-SKILL.md](assets/project-skill-SKILL.md)
 - Keep this skill focused on shared commit method and default writing style.
-- Put repository-specific scope lists, language requirements, and special commit constraints in a separate repository rule skill.
+- Keep the project rule skill limited to project facts: scope lists, summary language, avoided scopes, and special constraints.
+- For the detailed installation flow, read [references/project-installation.md](references/project-installation.md).
+
+### Steps
+1. Inspect `AGENTS.md`, `docs/`, and recent good commits.
+2. Generate or update `docs/git-commit提交说明.md`.
+3. Create `<project>-git-commit-rules/SKILL.md`.
+4. Fill only project facts and constraints.
 
 ## Anti-patterns
 - `git commit --no-gpg-sign ...`
