@@ -81,7 +81,8 @@ git commit -m "feat(field): 收敛端口字段与应用关联流程" \
 ## Project installation
 - When a repository needs custom commit rules, follow [references/project-installation.md](references/project-installation.md).
 - Use [assets/git-commit提交说明.md](assets/git-commit提交说明.md) as the developer-facing template for the project `docs/` directory.
-- Keep repository-specific constraints in a separate project skill instead of copying this entire skill into the repository.
+- Keep this skill focused on shared commit method and default writing style.
+- Put repository-specific scope lists, language requirements, and special commit constraints in a separate repository rule skill.
 
 ## Anti-patterns
 - `git commit --no-gpg-sign ...`

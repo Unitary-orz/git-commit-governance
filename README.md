@@ -22,7 +22,7 @@ docs(repo): 更新提交流程说明
 - **约束**：为 commit 约定了一套统一结构和 scope 规则，避免不同人各写一套风格。
 - **稳定的 commit 描述**：统一用简洁中文，尽量一行说清功能点变化，避免空泛描述。
 - **效果**：每个 commit 只讲一件事，阅读提交历史时，一眼能看出改了什么、影响到哪块。
-- **项目自定义**：通过单独的项目增量 skill 叠加规则，补充项目自己的 scope 列表和特殊约束，而不用复制这套通用规范。
+- **项目自定义**：通过仓库内独立规则补充 scope 列表和特殊约束，而不用复制这套通用规范。
 
 ## 📌 约束说明
 
@@ -56,8 +56,9 @@ $CODEX_HOME/skills/git-commit-governance
 **最小可用文件集**
 
 - `SKILL.md`
-- `references/scope.md`
 - 项目内的 `docs/git-commit提交说明.md`
+
+`references/scope.md` 是可选文件，仅在 scope 较多或需要单独解释时再使用。
 
 如果目标 agent 支持专门的规则文件、workspace instructions 或自定义系统提示词，可以直接引用上述文件内容。
 
@@ -88,8 +89,8 @@ git pull
 
 **推荐落地方式**
 
-- 公共 skill：负责通用规则
-- 项目增量 skill：负责项目自己的约束
+- `git-commit-governance` 负责通用方法
+- 项目 git 提交规则 skill 直接写项目事实
 
 **推荐目录结构**
 
@@ -100,7 +101,16 @@ git pull
 └── .codex/
     └── skills/
         └── <project>-git-commit-rules/
-            ├── SKILL.md
+            └── SKILL.md
+```
+
+如果项目 scope 较多或需要单独说明，再补：
+
+```text
+<project>/
+└── .codex/
+    └── skills/
+        └── <project>-git-commit-rules/
             └── references/
                 └── scope.md
 ```
@@ -135,6 +145,10 @@ git pull
 创建项目增量 skill，不复制公共 skill 正文
 ```
 
+项目 git 提交规则 skill 可直接基于模板生成：
+
+- `assets/project-skill-SKILL.md`
+
 ## 🗂️ 仓库结构
 
 这个仓库按单 skill 仓库维护，仓库根目录就是 skill 根目录：
@@ -149,7 +163,8 @@ git-commit-governance/
 │   ├── scope.md
 │   └── project-installation.md
 └── assets/
-    └── git-commit提交说明.md
+    ├── git-commit提交说明.md
+    └── project-skill-SKILL.md
 ```
 
 ## 📄 许可证
