@@ -15,9 +15,10 @@
 
 ## 生成原则
 - `git-commit-governance` 负责通用提交方法和默认写法。
-- 项目 git 提交规则 skill 直接写项目已知事实，例如 scope 白名单、summary 语言要求、禁止项、发布限制。
+- 项目 git 提交规则 skill 直接写项目已知事实，例如 scope 白名单、偏好覆盖项、禁止项、发布限制。
 - 开发者看项目文档，agent 参考仓库内可用的规则文件。
 - 如项目文档或 `AGENTS.md` 有更新，以项目最新规则为准。
+- 安装过程中，模型应结合仓库现状、历史提交风格和用户表达习惯，推断偏好覆盖项；生成结果时要明确告知用户本次选择了哪一档 `summary_language`、`body_style` 和 `split_bias`，以及为什么这样判断。
 
 ## 生成顺序
 
@@ -33,6 +34,8 @@
 - 团队实际使用哪些 `scope`
 - 哪些 `scope` 命名稳定、可复用
 - 提交粒度是偏细还是偏粗
+- 多行 body 在这个项目里是常态、补充项，还是很少使用
+- 用户或团队更习惯默认打包提交，还是更愿意拆成多条 commit
 
 如果历史提交质量混乱、命名漂移严重，或项目书面规范已经足够明确，则不要让历史 commit 覆盖书面规范。
 
@@ -49,7 +52,7 @@
 - `type` 集合
 - 项目 `scope` 白名单
 - 禁止或不推荐的 `scope`
-- `summary` 语言要求
+- 项目偏好覆盖项，例如 `summary_language`、`body_style`、`split_bias`
 - 提交前的检查目标
 - 发布、版本、脚本、签名等特殊限制
 
@@ -63,8 +66,8 @@
 - [assets/project-skill-SKILL.md](../assets/project-skill-SKILL.md)
 
 项目 git 提交规则 skill 推荐只写这几类内容：
-- `summary` 是否固定中文
 - 项目允许的 `scope`
+- 偏好覆盖项，例如 `summary_language`、`body_style`、`split_bias`
 - 不推荐或禁止的 `scope`
 - 发布、版本、桌面端、迁移脚本等特殊限制
 - 本项目的明确例外
@@ -83,12 +86,19 @@
 
 ### 5. 校对项目文档与项目规则
 完成生成后，检查两类内容是否一致：
-- `summary` 语言
 - `scope` 白名单
 - 禁止 scope
+- `summary_language`
+- `body_style`
+- `split_bias`
 - 发布与签名限制
 
 项目文档和项目规则可以表达方式不同，但规则不能相互矛盾。
+同时，交付给用户时应明确说明：
+- 本次推断出的 `summary_language`
+- 本次推断出的 `body_style`
+- 本次推断出的 `split_bias`
+- 触发该判断的主要依据，例如历史提交风格、当前项目节奏、用户在本次对话中的偏好表达
 
 ## 推荐输出
 

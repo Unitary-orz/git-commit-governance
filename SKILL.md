@@ -42,6 +42,24 @@ description: Use this skill when preparing a git commit, drafting or reviewing a
   - `app`: [references/project-types/app-development.md](references/project-types/app-development.md) for general app projects where `scope` should stay close to pages, flows, and product-facing domains.
   - `openclaw`: [references/project-types/openclaw-workspace.md](references/project-types/openclaw-workspace.md) for personal agent workspaces where `scope` can come from agent capabilities and long-lived task domains.
 
+## Preference Defaults
+- This skill keeps three default preference knobs:
+  - `summary_language`: `zh`
+  - `body_style`: `medium`
+  - `split_bias`: `medium`
+- `summary_language` affects the default language of `summary`:
+  - `zh`: use Chinese summaries by default
+  - `en`: use English summaries by default
+- `body_style` only affects how one commit is written:
+  - `low`: default to one line
+  - `medium`: default to one line; add a short body when one line is not enough to explain one coherent change
+  - `high`: more willing to add a short body when a coherent change has several key dimensions
+- `split_bias` only affects whether a change should stay in one commit or be split:
+  - `low`: default to one commit and do not actively ask to split
+  - `medium`: default to one commit, but suggest splitting when the staged change clearly contains multiple independent stories
+  - `high`: default to splitting when the change can be cleanly expressed as separate stories
+- Repository-local rules and project rule skills can override these defaults when needed.
+
 ## Message patterns
 
 ### Normal code change
@@ -82,18 +100,19 @@ git commit -m "feat(field): 收敛端口字段与应用关联流程" \
 2. If the repository clearly matches a known project type, read the relevant file under [references/project-types/](references/project-types/).
 3. Inspect working tree.
 4. Stage only the intended files.
-5. Re-check staged diff and split unrelated changes.
+5. Re-check staged diff and decide whether the staged change still reads as one story or should be split.
 6. For commit-only tasks, do not edit code unless the user asks or confirms.
 7. Choose exactly one concrete `scope` for the staged change.
-8. Run plain `git commit -m "type(scope): summary"`.
-9. If signing fails, stop and surface the error.
+8. Decide whether one line is enough or whether this one coherent change benefits from a short body.
+9. Run plain `git commit -m "type(scope): summary"`.
+10. If signing fails, stop and surface the error.
 
 ## Project installation
 - Use this skill to produce two repository outputs:
 - `docs/git-commit提交说明.md` from [assets/git-commit提交说明.md](assets/git-commit提交说明.md)
 - `<project>-git-commit-rules/SKILL.md` from [assets/project-skill-SKILL.md](assets/project-skill-SKILL.md)
 - Keep this skill focused on shared commit method and default writing style.
-- Keep the project rule skill limited to project facts: scope lists, summary language, avoided scopes, and special constraints.
+- Keep the project rule skill limited to project facts: scope lists, avoided scopes, preference overrides, and special constraints.
 - For the detailed installation flow, read [references/project-installation.md](references/project-installation.md).
 
 ### Steps

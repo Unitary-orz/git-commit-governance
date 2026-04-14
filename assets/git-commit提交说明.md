@@ -92,7 +92,9 @@
 请把以下内容替换成项目真实规则：
 
 - 项目名：`<项目名>`
-- summary 语言要求：`<例如：统一中文>`
 - scope 白名单：`<列出项目允许的 scope>`
+- `summary_language`：`<zh | en>`
+- `body_style`：`<low | medium | high>`
+- `split_bias`：`<low | medium | high>`
 - 禁止 scope：`<列出不建议或禁止的 scope>`
 - 特殊限制：`<例如：发布相关改动必须独立 commit>`
