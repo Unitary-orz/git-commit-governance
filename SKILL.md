@@ -11,7 +11,7 @@ description: Use this skill when preparing a git commit, drafting or reviewing a
 - Trigger when the task includes `git commit`, commit message drafting, staged diff review, or splitting commits.
 - Read [references/scope.md](references/scope.md) before choosing `scope`.
 - When the repository clearly matches a known project type, also read the relevant file under [references/project-types/](references/project-types/).
-- Default `summary` to Chinese unless the repository explicitly requires another language.
+- Follow repository or project preference overrides first; if `summary_language` is not specified, default `summary` to Chinese.
 
 ## Hard rules
 - Commit messages must follow `type(scope): summary`.
@@ -19,9 +19,9 @@ description: Use this skill when preparing a git commit, drafting or reviewing a
 - `scope` must be a single short noun or domain phrase. Prefer product/domain scope over technical layer scope unless the repository already mandates otherwise.
 - `summary` should be concise and directly describe the changed feature point, user-visible result, or clear business effect. Engineering action words are allowed, but they must stay attached to a concrete feature point.
 - Avoid vague summaries such as `修复问题`, `调整逻辑`, `优化代码`, or other text that does not say which feature changed.
-- Default to a single-line commit message (`type(scope): summary`).
-- Only use multi-line commit bodies for larger but coherent functional changes; most commits should remain one line.
-- If a body is needed, keep it brief (up to 3 bullet lines) and explain the main change dimensions instead of listing files.
+- Commit messages must always start with `type(scope): summary`; after that, use repository or project preferences such as `summary_language` and `body_style` to choose the language and whether the commit should stay single-line or include a short body.
+- Multi-line bodies are valid when the change is still one coherent story and a short body helps explain the main impact, boundary, compatibility, or major change dimensions.
+- If a body is used, keep it brief (up to 3 bullet lines) and explain the main change dimensions instead of listing files.
 - Do not use `--no-gpg-sign`.
 - If Git signing fails, stop and report the signing problem to the user. Do not bypass signing.
 
@@ -47,13 +47,14 @@ description: Use this skill when preparing a git commit, drafting or reviewing a
   - `summary_language`: `zh`
   - `body_style`: `medium`
   - `split_bias`: `medium`
+- These are preferences, not hard constraints. Repository-local rules may override them.
 - `summary_language` affects the default language of `summary`:
   - `zh`: use Chinese summaries by default
   - `en`: use English summaries by default
-- `body_style` only affects how one commit is written:
-  - `low`: default to one line
-  - `medium`: default to one line; add a short body when one line is not enough to explain one coherent change
-  - `high`: more willing to add a short body when a coherent change has several key dimensions
+- `body_style` is the main preference for how one coherent commit should be written:
+  - `low`: prefer single-line commits unless a short body is needed to avoid ambiguity
+  - `medium`: choose single-line or short-body form based on what best explains the coherent change
+  - `high`: prefer adding a short body whenever it helps clarify the main dimensions of one coherent change
 - `split_bias` only affects whether a change should stay in one commit or be split:
   - `low`: default to one commit and do not actively ask to split
   - `medium`: default to one commit, but suggest splitting when the staged change clearly contains multiple independent stories
@@ -102,8 +103,8 @@ git commit -m "feat(field): 收敛端口字段与应用关联流程" \
 5. Re-check staged diff and decide whether the staged change still reads as one story or should be split.
 6. For commit-only tasks, do not edit code unless the user asks or confirms.
 7. Choose exactly one concrete `scope` for the staged change.
-8. Decide whether one line is enough or whether this one coherent change benefits from a short body.
-9. Run plain `git commit -m "type(scope): summary"`.
+8. Read applicable preference overrides, especially `summary_language` and `body_style`, then decide the final language and whether this one coherent change should stay single-line or include a short body.
+9. Run the commit in the form that matches the selected structure.
 10. If signing fails, stop and surface the error.
 
 ## Project installation
